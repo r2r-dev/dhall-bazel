@@ -1,0 +1,940 @@
+{
+  "definitions": {
+    "blaze_query.License": {
+      "title": "License",
+      "type": "object",
+      "properties": {
+        "license_type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exception": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blaze_query.StringDictEntry": {
+      "title": "StringDictEntry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "blaze_query.LabelDictUnaryEntry": {
+      "title": "LabelDictUnaryEntry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "blaze_query.LabelListDictEntry": {
+      "title": "LabelListDictEntry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "key"
+      ]
+    },
+    "blaze_query.LabelKeyedStringDictEntry": {
+      "title": "LabelKeyedStringDictEntry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "blaze_query.StringListDictEntry": {
+      "title": "StringListDictEntry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "key"
+      ]
+    },
+    "blaze_query.FilesetEntry": {
+      "title": "FilesetEntry",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "destination_directory": {
+          "type": "string"
+        },
+        "files_present": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "symlink_behavior": {
+          "title": "SymlinkBehavior",
+          "type": "string",
+          "enum": [
+            "COPY",
+            "DEREFERENCE"
+          ]
+        },
+        "strip_prefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "destination_directory"
+      ]
+    },
+    "blaze_query.DEPRECATED_GlobCriteria": {
+      "title": "DEPRECATED_GlobCriteria",
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "glob": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blaze_query.Attribute": {
+      "title": "Attribute",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "DEPRECATED_parseable_location": {
+          "$ref": "#/definitions/blaze_query.Location"
+        },
+        "explicitly_specified": {
+          "type": "boolean"
+        },
+        "nodep": {
+          "type": "boolean"
+        },
+        "type": {
+          "title": "Discriminator",
+          "type": "string",
+          "enum": [
+            "INTEGER",
+            "STRING",
+            "LABEL",
+            "OUTPUT",
+            "STRING_LIST",
+            "LABEL_LIST",
+            "OUTPUT_LIST",
+            "DISTRIBUTION_SET",
+            "LICENSE",
+            "STRING_DICT",
+            "FILESET_ENTRY_LIST",
+            "LABEL_LIST_DICT",
+            "STRING_LIST_DICT",
+            "BOOLEAN",
+            "TRISTATE",
+            "INTEGER_LIST",
+            "UNKNOWN",
+            "LABEL_DICT_UNARY",
+            "SELECTOR_LIST",
+            "LABEL_KEYED_STRING_DICT",
+            "DEPRECATED_STRING_DICT_UNARY"
+          ]
+        },
+        "int_value": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "string_value": {
+          "type": "string"
+        },
+        "boolean_value": {
+          "type": "boolean"
+        },
+        "tristate_value": {
+          "title": "Tristate",
+          "type": "string",
+          "enum": [
+            "NO",
+            "YES",
+            "AUTO"
+          ]
+        },
+        "string_list_value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "license": {
+          "$ref": "#/definitions/blaze_query.License"
+        },
+        "string_dict_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.StringDictEntry"
+          }
+        },
+        "fileset_list_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.FilesetEntry"
+          }
+        },
+        "label_list_dict_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.LabelListDictEntry"
+          }
+        },
+        "string_list_dict_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.StringListDictEntry"
+          }
+        },
+        "int_list_value": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        },
+        "label_dict_unary_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.LabelDictUnaryEntry"
+          }
+        },
+        "label_keyed_string_dict_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.LabelKeyedStringDictEntry"
+          }
+        },
+        "selector_list": {
+          "title": "SelectorList",
+          "type": "object",
+          "properties": {
+            "type": {
+              "title": "Discriminator",
+              "type": "string",
+              "enum": [
+                "INTEGER",
+                "STRING",
+                "LABEL",
+                "OUTPUT",
+                "STRING_LIST",
+                "LABEL_LIST",
+                "OUTPUT_LIST",
+                "DISTRIBUTION_SET",
+                "LICENSE",
+                "STRING_DICT",
+                "FILESET_ENTRY_LIST",
+                "LABEL_LIST_DICT",
+                "STRING_LIST_DICT",
+                "BOOLEAN",
+                "TRISTATE",
+                "INTEGER_LIST",
+                "UNKNOWN",
+                "LABEL_DICT_UNARY",
+                "SELECTOR_LIST",
+                "LABEL_KEYED_STRING_DICT",
+                "DEPRECATED_STRING_DICT_UNARY"
+              ]
+            },
+            "elements": {
+              "type": "array",
+              "items": {
+                "title": "Selector",
+                "type": "object",
+                "properties": {
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "title": "SelectorEntry",
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "is_default_value": {
+                          "type": "boolean"
+                        },
+                        "int_value": {
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
+                        },
+                        "string_value": {
+                          "type": "string"
+                        },
+                        "boolean_value": {
+                          "type": "boolean"
+                        },
+                        "tristate_value": {
+                          "title": "Tristate",
+                          "type": "string",
+                          "enum": [
+                            "NO",
+                            "YES",
+                            "AUTO"
+                          ]
+                        },
+                        "string_list_value": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "license": {
+                          "$ref": "#/definitions/blaze_query.License"
+                        },
+                        "string_dict_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.StringDictEntry"
+                          }
+                        },
+                        "fileset_list_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.FilesetEntry"
+                          }
+                        },
+                        "label_list_dict_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.LabelListDictEntry"
+                          }
+                        },
+                        "string_list_dict_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.StringListDictEntry"
+                          }
+                        },
+                        "int_list_value": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
+                          }
+                        },
+                        "label_dict_unary_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.LabelDictUnaryEntry"
+                          }
+                        },
+                        "label_keyed_string_dict_value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.LabelKeyedStringDictEntry"
+                          }
+                        },
+                        "DEPRECATED_glob_criteria": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/blaze_query.DEPRECATED_GlobCriteria"
+                          }
+                        },
+                        "DEPRECATED_string_dict_unary_value": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "has_default_value": {
+                    "type": "boolean"
+                  },
+                  "no_match_error": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DEPRECATED_glob_criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.DEPRECATED_GlobCriteria"
+          }
+        },
+        "DEPRECATED_string_dict_unary_value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "blaze_query.Location": {
+      "title": "Location",
+      "type": "object",
+      "properties": {
+        "start_offset": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "start_line": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "start_column": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "end_offset": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "end_line": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "end_column": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      }
+    },
+    "blaze_query.Rule": {
+      "title": "Rule",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rule_class": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.Attribute"
+          }
+        },
+        "rule_input": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rule_output": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "default_setting": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DEPRECATED_parseable_location": {
+          "$ref": "#/definitions/blaze_query.Location"
+        },
+        "public_by_default": {
+          "type": "boolean"
+        },
+        "is_skylark": {
+          "type": "boolean"
+        },
+        "skylark_attribute_aspects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.AttributeAspect"
+          }
+        },
+        "skylark_environment_hash_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "rule_class"
+      ]
+    },
+    "blaze_query.AttributeAspect": {
+      "title": "AttributeAspect",
+      "type": "object",
+      "properties": {
+        "attribute_name": {
+          "type": "string"
+        },
+        "aspect": {
+          "$ref": "#/definitions/blaze_query.SkylarkAspect"
+        }
+      },
+      "required": [
+        "attribute_name",
+        "aspect"
+      ]
+    },
+    "blaze_query.SkylarkAspect": {
+      "title": "SkylarkAspect",
+      "type": "object",
+      "properties": {
+        "extension_file_label": {
+          "type": "string"
+        },
+        "exported_name": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.Attribute"
+          }
+        }
+      },
+      "required": [
+        "extension_file_label",
+        "exported_name"
+      ]
+    },
+    "blaze_query.RuleSummary": {
+      "title": "RuleSummary",
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/blaze_query.Rule"
+        },
+        "dependency": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.Rule"
+          }
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule"
+      ]
+    },
+    "blaze_query.PackageGroup": {
+      "title": "PackageGroup",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "contained_package": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "included_package_group": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DEPRECATED_parseable_location": {
+          "$ref": "#/definitions/blaze_query.Location"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "blaze_query.EnvironmentGroup": {
+      "title": "EnvironmentGroup",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "default": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "blaze_query.SourceFile": {
+      "title": "SourceFile",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "DEPRECATED_parseable_location": {
+          "$ref": "#/definitions/blaze_query.Location"
+        },
+        "subinclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "package_group": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visibility_label": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "feature": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "license": {
+          "$ref": "#/definitions/blaze_query.License"
+        },
+        "package_contains_errors": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "blaze_query.GeneratedFile": {
+      "title": "GeneratedFile",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "generating_rule": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "generating_rule"
+      ]
+    },
+    "blaze_query.Target": {
+      "title": "Target",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Discriminator",
+          "type": "string",
+          "enum": [
+            "RULE",
+            "SOURCE_FILE",
+            "GENERATED_FILE",
+            "PACKAGE_GROUP",
+            "ENVIRONMENT_GROUP"
+          ]
+        },
+        "rule": {
+          "$ref": "#/definitions/blaze_query.Rule"
+        },
+        "source_file": {
+          "$ref": "#/definitions/blaze_query.SourceFile"
+        },
+        "generated_file": {
+          "$ref": "#/definitions/blaze_query.GeneratedFile"
+        },
+        "package_group": {
+          "$ref": "#/definitions/blaze_query.PackageGroup"
+        },
+        "environment_group": {
+          "$ref": "#/definitions/blaze_query.EnvironmentGroup"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "blaze_query.QueryResult": {
+      "title": "QueryResult",
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.Target"
+          }
+        }
+      }
+    },
+    "blaze_query.AllowedRuleClassInfo": {
+      "title": "AllowedRuleClassInfo",
+      "type": "object",
+      "properties": {
+        "policy": {
+          "title": "AllowedRuleClasses",
+          "type": "string",
+          "enum": [
+            "ANY",
+            "SPECIFIED"
+          ]
+        },
+        "allowed_rule_class": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "policy"
+      ]
+    },
+    "blaze_query.AttributeDefinition": {
+      "title": "AttributeDefinition",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "title": "Discriminator",
+          "type": "string",
+          "enum": [
+            "INTEGER",
+            "STRING",
+            "LABEL",
+            "OUTPUT",
+            "STRING_LIST",
+            "LABEL_LIST",
+            "OUTPUT_LIST",
+            "DISTRIBUTION_SET",
+            "LICENSE",
+            "STRING_DICT",
+            "FILESET_ENTRY_LIST",
+            "LABEL_LIST_DICT",
+            "STRING_LIST_DICT",
+            "BOOLEAN",
+            "TRISTATE",
+            "INTEGER_LIST",
+            "UNKNOWN",
+            "LABEL_DICT_UNARY",
+            "SELECTOR_LIST",
+            "LABEL_KEYED_STRING_DICT",
+            "DEPRECATED_STRING_DICT_UNARY"
+          ]
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "allowed_rule_classes": {
+          "$ref": "#/definitions/blaze_query.AllowedRuleClassInfo"
+        },
+        "documentation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "mandatory"
+      ]
+    },
+    "blaze_query.RuleDefinition": {
+      "title": "RuleDefinition",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.AttributeDefinition"
+          }
+        },
+        "documentation": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "blaze_query.BuildLanguage": {
+      "title": "BuildLanguage",
+      "type": "object",
+      "properties": {
+        "rule": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.RuleDefinition"
+          }
+        }
+      }
+    },
+    "blaze_query.MakeVarBinding": {
+      "title": "MakeVarBinding",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "platform_set_regexp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "platform_set_regexp"
+      ]
+    },
+    "blaze_query.MakeVar": {
+      "title": "MakeVar",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "binding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blaze_query.MakeVarBinding"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "blaze_query.Event": {
+      "title": "Event",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "title": "EventKind",
+          "type": "string",
+          "enum": [
+            "ERROR",
+            "WARNING",
+            "INFO",
+            "PROGRESS"
+          ]
+        },
+        "DEPRECATED_location": {
+          "$ref": "#/definitions/blaze_query.Location"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    }
+  }
+}
